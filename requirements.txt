@@ -1,0 +1,8 @@
+aiogram
+openai
+python-dotenv
+pydantic
+loguru
+asyncpg
+sqlalchemy
+pydantic-settings
