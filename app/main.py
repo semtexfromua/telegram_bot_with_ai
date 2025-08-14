@@ -15,13 +15,28 @@ dp = Dispatcher()
 
 
 @dp.message(CommandStart())
-async def start(message: Message):
-    await message.answer("Hello there!")
-
+async def start_cmd(message: Message):
+    await message.answer(settings.main_text)
 
 @dp.message(Command("help"))
-async def get_help(message: Message):
-    await message.answer("You need help?")
+async def help_cmd(message: Message):
+    await message.answer(settings.main_text)
+
+@dp.message(Command("gpt"))
+async def gpt_cmd(message: Message):
+    await message.answer(settings.gpt_text)
+
+@dp.message(Command("quiz"))
+async def quiz_cmd(message: Message):
+    await message.answer(settings.quiz_text)
+
+@dp.message(Command("random"))
+async def random_cmd(message: Message):
+    await message.answer(settings.random_text)
+
+@dp.message(Command("talk"))
+async def talk_cmd(message: Message):
+    await message.answer(settings.talk_text)
 
 
 async def main():
