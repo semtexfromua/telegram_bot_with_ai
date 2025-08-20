@@ -2,7 +2,7 @@ import asyncio
 import platform
 
 from openai import AsyncOpenAI, OpenAIError
-from app.config import Settings
+from app.settings.config import Settings
 
 settings = Settings()
 if platform.system() == 'Windows':

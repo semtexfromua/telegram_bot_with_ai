@@ -3,9 +3,9 @@ import logging
 import platform
 
 from aiogram import Bot, Dispatcher
-from bot.handlers import router
+from app.bot.handlers.commands import router
 
-from app.config import Settings
+from app.settings.config import Settings
 
 settings = Settings()
 if platform.system() == 'Windows':
