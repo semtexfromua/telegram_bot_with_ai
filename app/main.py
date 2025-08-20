@@ -1,45 +1,23 @@
 import asyncio
 import logging
-
+import platform
 
 from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart, Command
-from aiogram.types import Message
+from bot.handlers import router
 
 from app.config import Settings
 
 settings = Settings()
+if platform.system() == 'Windows':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 bot = Bot(settings.TELEGRAM_BOT_TOKEN)
 dp = Dispatcher()
 
 
-@dp.message(CommandStart())
-async def start_cmd(message: Message):
-    await message.answer(settings.main_text)
-
-@dp.message(Command("help"))
-async def help_cmd(message: Message):
-    await message.answer(settings.main_text)
-
-@dp.message(Command("gpt"))
-async def gpt_cmd(message: Message):
-    await message.answer(settings.gpt_text)
-
-@dp.message(Command("quiz"))
-async def quiz_cmd(message: Message):
-    await message.answer(settings.quiz_text)
-
-@dp.message(Command("random"))
-async def random_cmd(message: Message):
-    await message.answer(settings.random_text)
-
-@dp.message(Command("talk"))
-async def talk_cmd(message: Message):
-    await message.answer(settings.talk_text)
-
 
 async def main():
+    dp.include_router(router)
     await dp.start_polling(bot)
 
 

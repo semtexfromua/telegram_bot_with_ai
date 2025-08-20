@@ -1,19 +1,42 @@
 import asyncio
-from openai import AsyncOpenAI
+import platform
 
+from openai import AsyncOpenAI, OpenAIError
 from app.config import Settings
 
 settings = Settings()
-client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+if platform.system() == 'Windows':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
-async def main() -> None:
-    response = await client.chat.completions.create(
-       model="gpt-3.5-turbo",
-       messages=[{"role": "user", "content": "prompt"}],
-       max_tokens=settings.MAX_TOKENS,
-       temperature=settings.TEMPERATURE)
+class AsyncOpenAiClient:
+    def __init__(self, token):
+        self._client = AsyncOpenAI(api_key=token)
 
-    print(response.choices[0].message.content)
+    async def send_message(self, message: str, sys_prompt: str = "You are basic assistant") -> str:
+        try:
+            response = await self._client.chat.completions.create(
+                messages=[
+                    {"role": "system", "content": sys_prompt},
+                    {"role": "user", "content": message}
+                ],
+                model="gpt-3.5-turbo",
+                temperature=settings.TEMPERATURE,
+                max_tokens=settings.MAX_TOKENS
+            )
+            return response.choices[0].message.content
+        except OpenAIError as e:
+            return "Sorry, temporary OpenAI API call failed."
 
-asyncio.run(main())
+
+async def main():
+    client = AsyncOpenAiClient(settings.OPENAI_API_KEY)
+    try:
+        test_reply = await client.send_message("Розкажи мені про FastAPI", "Ти senior python девелопер")
+        print(test_reply)
+    except KeyboardInterrupt as e:
+        print("Goodbye")
+
+
+if __name__ == '__main__':
+    asyncio.run(main())

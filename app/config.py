@@ -7,32 +7,16 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
     )
 
+    BASE_DIR = Path(__file__).parent.parent.parent
     TELEGRAM_BOT_TOKEN: str
     OPENAI_API_KEY: str
-    MAX_TOKENS: int
-    TEMPERATURE: float
 
-    @property
-    def main_text(self) -> str:
-        with open(Path(__file__).parent.parent / "resources" / "messages" / "main.txt", encoding="UTF-8") as f:
-            return f.read()
+    openai_model_name: str = "gpt-3.5-turbo"
+    openai_model_temperature: float = 0.8
 
-    @property
-    def gpt_text(self) -> str:
-        with open(Path(__file__).parent.parent / "resources" / "messages" / "gpt.txt", encoding="UTF-8") as f:
-            return f.read()
+    images_dir: Path = BASE_DIR / "images"
+    messages_path: Path = BASE_DIR / "messeges.yaml"
+    prompts_path: Path = BASE_DIR / "prompts.yaml"
 
-    @property
-    def quiz_text(self) -> str:
-        with open(Path(__file__).parent.parent / "resources" / "messages" / "quiz.txt", encoding="UTF-8") as f:
-            return f.read()
 
-    @property
-    def random_text(self) -> str:
-        with open(Path(__file__).parent.parent / "resources" / "messages" / "random.txt", encoding="UTF-8") as f:
-            return f.read()
-
-    @property
-    def talk_text(self) -> str:
-        with open(Path(__file__).parent.parent / "resources" / "messages" / "talk.txt", encoding="UTF-8") as f:
-            return f.read()
+settings = Settings()
