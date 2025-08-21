@@ -1,8 +1,10 @@
 from aiogram import Router, F
+from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, BufferedInputFile
 
 from app.bot.keyboards import create_keyboard
 from app.utils.resource_loader import resources
+from app.bot.fsm import CurrentState
 
 from app.utils.gpt import AsyncOpenAiClient
 
@@ -10,8 +12,8 @@ callback_router = Router()
 client = AsyncOpenAiClient()
 
 @callback_router.callback_query(F.data == "start")
-async def start_cmd(callback: CallbackQuery):
-
+async def start_cmd(callback: CallbackQuery, state: FSMContext):
+    await state.set_state(None)
     await callback.answer("")
 
     await callback.message.answer_photo(
@@ -37,7 +39,8 @@ async def random_cmd(callback: CallbackQuery):
         reply_markup=await create_keyboard(markup=resources.menus.random))
 
 @callback_router.callback_query(F.data =="gpt")
-async def gpt_cmd(callback: CallbackQuery):
+async def gpt_cmd(callback: CallbackQuery, state: FSMContext):
+    await state.set_state(CurrentState.gpt_waiting_question)
     await callback.answer("")
     await callback.message.answer_photo(
         photo=BufferedInputFile(resources.images.gpt, filename="gpt.jpg"),
