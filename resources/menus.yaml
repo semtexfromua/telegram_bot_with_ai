@@ -7,7 +7,7 @@ main:
   translate: Перекладач тексту · 🌐
   speech: Голосовий чат з GPT · 🎤
 random:
-  more: Ще факт · 🧠
+  random: Ще факт · 🧠
   start: Досить уже, голова болить · 📋
 gpt:
   start: Потім продовжимо, хочу на головну · 📋
@@ -18,6 +18,12 @@ talk:
   queen: Єлизавета II - Королева Об'єднаного Королівства 👑
   tolkien: Джон Толкін - Автор книги "Володар Перснів" 📖
   start: Повернутись · 📋
+quiz:
+  quiz_python: Python 🐍,
+  quiz_javascript: JavaScript ⚡,
+  quiz_docker: Docker 🐳,
+  quiz_web: Web 🌐,
+  start: Повернутись 🏠
 translate:
   uk: Українська - Офіційна мова України
   en: English - International language
@@ -29,5 +35,6 @@ translate:
   ar: العربية - Language of Arab world and Middle East
   ja: 日本語 - Language of Japan and Japanese culture
   zh: 中文 - Language of China and Chinese culture
+  start: Повернутись 🏠
 speech:
   start: Наговорився, дякую · 📋

@@ -3,6 +3,7 @@ import platform
 
 from openai import AsyncOpenAI, OpenAIError
 from app.settings.config import Settings
+from app.utils.resource_loader import resources
 
 settings = Settings()
 if platform.system() == 'Windows':
@@ -10,8 +11,8 @@ if platform.system() == 'Windows':
 
 
 class AsyncOpenAiClient:
-    def __init__(self, token):
-        self._client = AsyncOpenAI(api_key=token)
+    def __init__(self):
+        self._client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
 
     async def send_message(self, message: str, sys_prompt: str = "You are basic assistant") -> str:
         try:
@@ -30,9 +31,9 @@ class AsyncOpenAiClient:
 
 
 async def main():
-    client = AsyncOpenAiClient(settings.OPENAI_API_KEY)
+    client = AsyncOpenAiClient()
     try:
-        test_reply = await client.send_message("Розкажи мені про FastAPI", "Ти senior python девелопер")
+        test_reply = await client.send_message(resources.prompts.random)
         print(test_reply)
     except KeyboardInterrupt as e:
         print("Goodbye")
