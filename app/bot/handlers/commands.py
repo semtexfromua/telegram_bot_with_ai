@@ -44,7 +44,7 @@ async def gpt_cmd(message: Message, state: FSMContext):
         reply_markup=await create_keyboard(markup=resources.menus.gpt))
 
 @command_router.message(Command("talk"))
-async def talk_cmd(message: Message):
+async def talk_cmd(message: Message, state: FSMContext):
     await message.answer_photo(
         photo=BufferedInputFile(resources.images.talk, filename="talk.jpg"),
         caption=resources.messages.talk,

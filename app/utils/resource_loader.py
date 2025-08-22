@@ -21,12 +21,8 @@ class Resources:
             data = safe_load(f)
 
         self.prompts = SimpleNamespace()
-
         for key, value in data.items():
-            if isinstance(value, dict):
-                setattr(self.prompts, key, SimpleNamespace(**value))
-            else:
-                setattr(self.prompts, key, value)
+            setattr(self.prompts, key, value)
 
     def load_menus(self):
         with open(settings.menus_path, encoding="utf-8") as f:
