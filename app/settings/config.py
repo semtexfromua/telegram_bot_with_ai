@@ -13,11 +13,14 @@ class Settings(BaseSettings):
 
     TELEGRAM_BOT_TOKEN: str
     OPENAI_API_KEY: str
+    DEEPGRAM_API_KEY: str
+
     TEMPERATURE: float = 0.8
     MAX_TOKENS: int = 300
 
     openai_model_name: str = "gpt-3.5-turbo"
     openai_model_temperature: float = 0.8
+
 
 
     messages_path: Path = BASE_DIR / "resources" / "messages.yaml"

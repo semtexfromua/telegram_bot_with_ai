@@ -22,6 +22,17 @@ async def gpt_message_capture(message: Message, state: FSMContext):
         caption=resources.messages.gpt + "\n" + answer,
         reply_markup=await create_keyboard(markup=resources.menus.gpt))
 
+@states_router.message(CurrentState.talk_person_question)
+async def talk_message_caputre(message: Message, state: FSMContext):
+    user_id, user_message = message.from_user.id, message.text
+    data = await state.get_data()
+    persona = data.get("persona")
+    answer = await client.send_message(user_message, resources.prompts.talk[persona])
+    await message.answer_photo(
+        photo=BufferedInputFile(getattr(resources.images, persona), filename=f"{persona}.jpg"),
+        caption=answer,
+        reply_markup=await create_keyboard(markup=resources.menus.talk_util))
+
 
 @states_router.message(CurrentState.translate_waiting_text)
 async def talk_message_caputre(message: Message, state: FSMContext):
