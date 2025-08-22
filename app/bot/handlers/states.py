@@ -23,13 +23,13 @@ async def gpt_message_capture(message: Message, state: FSMContext):
         reply_markup=await create_keyboard(markup=resources.menus.gpt))
 
 
-@states_router.message(CurrentState.talk_person_question)
+@states_router.message(CurrentState.translate_waiting_text)
 async def talk_message_caputre(message: Message, state: FSMContext):
     user_id, user_message = message.from_user.id, message.text
     data = await state.get_data()
-    persona = data.get("persona")
-    answer = await client.send_message(user_message, resources.prompts.talk[persona])
+    language = data.get("language")
+    answer = await client.send_message(user_message, f"{resources.prompts.translate} Translate to {language}")
     await message.answer_photo(
-        photo=BufferedInputFile(getattr(resources.images, persona), filename=f"{persona}.jpg"),
+        photo=BufferedInputFile(resources.images.translate, filename=f"translate.jpg"),
         caption=answer,
-        reply_markup=await create_keyboard(markup=resources.menus.speech))
+        reply_markup=await create_keyboard(markup=resources.menus.talk_util))

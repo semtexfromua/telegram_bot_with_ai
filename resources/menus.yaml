@@ -18,23 +18,29 @@ talk:
   talk_queen: Єлизавета II - Королева Об'єднаного Королівства 👑
   talk_tolkien: Джон Толкін - Автор книги "Володар Перснів" 📖
   start: Повернутись · 📋
+talk_util:
+ start: Повернутись · 📋
 quiz:
   quiz_python: Python 🐍,
   quiz_javascript: JavaScript ⚡,
   quiz_docker: Docker 🐳,
   quiz_web: Web 🌐,
   start: Повернутись 🏠
+quiz_util:
+  start: Повернутись 🏠
 translate:
-  uk: Українська - Офіційна мова України
-  en: English - International language
-  es: Español - Language of Spain and Latin America
-  fr: Français - Language of France and Francophone countries
-  de: Deutsch - Language of Germany and German-speaking countries
-  it: Italiano - Language of Italy and Italian culture
-  pt: Português - Language of Portugal and Brazil
-  ar: العربية - Language of Arab world and Middle East
-  ja: 日本語 - Language of Japan and Japanese culture
-  zh: 中文 - Language of China and Chinese culture
+  translate_uk: Українська - Офіційна мова України
+  translate_en: English - International language
+  translate_es: Español - Language of Spain and Latin America
+  translate_fr: Français - Language of France and Francophone countries
+  translate_de: Deutsch - Language of Germany and German-speaking countries
+  translate_it: Italiano - Language of Italy and Italian culture
+  translate_pt: Português - Language of Portugal and Brazil
+  translate_ar: العربية - Language of Arab world and Middle East
+  translate_ja: 日本語 - Language of Japan and Japanese culture
+  translate_zh: 中文 - Language of China and Chinese culture
+  start: Повернутись 🏠
+translate_util:
   start: Повернутись 🏠
 speech:
   start: Наговорився, дякую · 📋

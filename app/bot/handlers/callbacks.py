@@ -95,5 +95,16 @@ async def handle_person_clb(callback: CallbackQuery, state: FSMContext):
     await callback.message.answer_photo(
         photo=BufferedInputFile(getattr(resources.images, persona), filename=f"{persona}.jpg"),
         caption=f"Можете почати спілкування",
-        reply_markup=await create_keyboard(markup=resources.menus.speech))
+        reply_markup=await create_keyboard(markup=resources.menus.talk_util))
 
+
+@callback_router.callback_query(F.data.startswith("translate_"))
+async def handle_translate_clb(callback: CallbackQuery, state: FSMContext):
+    await callback.answer()
+    language=callback.data
+    await state.update_data(language=language)
+    await state.set_state(CurrentState.translate_waiting_text)
+    await callback.message.answer_photo(
+        photo=BufferedInputFile(resources.images.translate, filename=f"translate.jpg"),
+        caption=f"Напишіть що ви хочете перекласти",
+        reply_markup=await create_keyboard(markup=resources.menus.translate_util))
