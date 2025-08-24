@@ -13,6 +13,9 @@ from app.bot.handlers.states import states_router
 
 from app.settings.config import Settings
 
+from vosk import Model
+
+
 settings = Settings()
 if platform.system() == 'Windows':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -21,11 +24,19 @@ bot = Bot(settings.TELEGRAM_BOT_TOKEN,
           default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN))
 dp = Dispatcher(storage=MemoryStorage())
 
+print("Завантаження моделі Vosk...")
+try:
+    vosk_model = Model(settings.vosk_model_path)
+except Exception as e:
+    print(e)
+print("Модель Vosk завантажено.")
+
 
 
 async def main():
     dp.include_routers(states_router, command_router, callback_router)
     await dp.start_polling(bot)
+
 
 
 if __name__ == '__main__':

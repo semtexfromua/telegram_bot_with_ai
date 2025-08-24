@@ -78,7 +78,8 @@ async def translate_lcb(callback: CallbackQuery):
 
 
 @callback_router.callback_query(F.data =="speech")
-async def speech_lcb(callback: CallbackQuery):
+async def speech_lcb(callback: CallbackQuery, state: FSMContext):
+    await state.set_state(CurrentState.speech_waiting_audio)
     await callback.answer("")
     await callback.message.answer_photo(
         photo=BufferedInputFile(resources.images.speech, filename="speech.jpg"),

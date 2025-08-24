@@ -65,7 +65,8 @@ async def translate_cmd(message: Message):
         reply_markup=await create_keyboard(markup=resources.menus.translate))
 
 @command_router.message(Command("speech"))
-async def speech_cmd(message: Message):
+async def speech_cmd(message: Message, state: FSMContext):
+    await state.set_state(CurrentState.speech_waiting_audio)
     await message.answer_photo(
         photo=BufferedInputFile(resources.images.speech, filename="speech.jpg"),
         caption=resources.messages.speech,

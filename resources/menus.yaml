@@ -21,10 +21,10 @@ talk:
 talk_util:
  start: Повернутись · 📋
 quiz:
-  quiz_python: Python 🐍,
-  quiz_javascript: JavaScript ⚡,
-  quiz_docker: Docker 🐳,
-  quiz_web: Web 🌐,
+  quiz_python: Python 🐍
+  quiz_javascript: JavaScript ⚡
+  quiz_docker: Docker 🐳
+  quiz_web: Web 🌐
   start: Повернутись 🏠
 quiz_util:
   start: Повернутись 🏠
