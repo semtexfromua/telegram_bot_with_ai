@@ -15,7 +15,6 @@ class Settings(BaseSettings):
 
     TELEGRAM_BOT_TOKEN: str
     OPENAI_API_KEY: str
-    DEEPGRAM_API_KEY: str
 
     TEMPERATURE: float = 0.8
     MAX_TOKENS: int = 300
