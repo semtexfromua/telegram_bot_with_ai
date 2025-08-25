@@ -1,5 +1,7 @@
 from types import SimpleNamespace
+
 from yaml import safe_load
+
 from app.settings.config import settings
 
 
@@ -15,7 +17,6 @@ class Resources:
             data = safe_load(f)
         self.messages = SimpleNamespace(**data)
 
-
     def load_prompts(self):
         with open(settings.prompts_path, encoding="utf-8") as f:
             data = safe_load(f)
@@ -28,7 +29,6 @@ class Resources:
         with open(settings.menus_path, encoding="utf-8") as f:
             data = safe_load(f)
         self.menus = SimpleNamespace(**data)
-
 
     def load_images(self):
         self.images = SimpleNamespace()

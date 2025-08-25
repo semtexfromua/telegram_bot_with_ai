@@ -1,9 +1,11 @@
-from typing import Dict
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
+from typing import Dict
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BASE_DIR = Path(__file__).parent.parent.parent
 IMAGES_DIR = BASE_DIR / "resources" / "images"
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -21,13 +23,13 @@ class Settings(BaseSettings):
     openai_model_name: str = "gpt-3.5-turbo"
     openai_model_temperature: float = 0.8
 
-    vosk_model_path: str =  str(BASE_DIR / "vosk" / "vosk-model-uk-v3-lgraph")
-
+    vosk_model_path: str = str(BASE_DIR / "vosk" / "vosk-model-uk-v3-lgraph")
 
     messages_path: Path = BASE_DIR / "resources" / "messages.yaml"
     prompts_path: Path = BASE_DIR / "resources" / "prompts.yaml"
     menus_path: Path = BASE_DIR / "resources" / "menus.yaml"
-    images_dict: Dict[str, Path] = {str(file.name).split(".")[0]: IMAGES_DIR / file for file in IMAGES_DIR.iterdir()}
+    images_dict: Dict[str, Path] = {str(file.name).split(
+        ".")[0]: IMAGES_DIR / file for file in IMAGES_DIR.iterdir()}
 
 
 settings = Settings()
