@@ -76,7 +76,7 @@ OPENAI_API_KEY=your_openai_api_key
 # Завантажте модель з https://alphacephei.com/vosk/models
 # Розархівуйте в папку vosk/
 # Назву моделі додайте у config.py в папці app/settings
-```y
+```
 
 ## 🔧 Конфігурація
 
