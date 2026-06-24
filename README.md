@@ -1,230 +1,48 @@
-# Telegram Bot з AI функціональністю
+# Telegram Bot with AI — my first aiogram project 🌱
 
-Український Telegram бот з інтеграцією штучного інтелекту, що надає можливість спілкування з GPT, проходження квізів, перекладу тексту, роботи з голосовими повідомленнями та спілкування з історичними персонажами.
+> **My very first Python project** and first hands-on with **aiogram**. This is where I started — a simple, honestly rough Telegram bot I built while learning. I keep it public on purpose: it's the "before" in my before-and-after.
 
-## 🚀 Функціональність
+A Ukrainian-language Telegram bot packed with small AI toys: GPT chat, AI-generated quizzes, translation, voice messages, and chats with historical characters.
 
-- **GPT Чат** - спілкування з OpenAI GPT-3.5
-- **Квізи** - інтерактивні тематичні питання з генерацією через AI
-- **Переклад** - переклад тексту на різні мови
-- **Голосові повідомлення** - конвертація голосу в текст та навпаки
-- **Спілкування з персонажами** - діалоги з історичними особистостями
-- **Рандомні поради** - генерація випадкових порад через AI
+## ✨ Features
+- 💬 **GPT chat** (OpenAI GPT-3.5)
+- 🧠 **AI-generated quizzes** by topic
+- 🌐 **Text translation**
+- 🎙 **Voice messages** — offline Ukrainian speech recognition (Vosk) + speech synthesis (gTTS)
+- 🎭 **Conversations with historical figures**
+- 🎲 **Random AI advice**
 
-## 🏗️ Архітектура
+## 🛠 Stack
+`aiogram 3.x` · `OpenAI API` · `Vosk` · `gTTS` · `Pydantic` · FSM (finite state machine)
 
-Проект побудований на основі:
-- **aiogram 3.x** - сучасна асинхронна бібліотека для Telegram Bot API
-- **OpenAI API** - інтеграція з GPT моделями
-- **Vosk** - офлайн розпізнавання української мови
-- **gTTS** - синтез української мови
-- **Pydantic** - валідація даних та конфігурація
-- **FSM (Finite State Machine)** - управління станами бота
+For a first project, it already does a fair bit — async bot framework, an AI API, and offline voice. The code, though, is deliberately simple. And that's the point.
 
-## 📁 Структура проекту
+## 🌱 What this project taught me
+It was my first time with async Python and the Telegram API, so the code is far from perfect — and I left it that way on purpose. Building it taught me, the hard way, the things I do properly now:
+- **Async matters** — a few operations here block the event loop; I learned to keep blocking and CPU-bound work off it.
+- **Don't repeat yourself** — command and callback handlers duplicate logic; my later projects are built around shared services.
+- **Tests & error handling** — this bot has neither; my next ones do.
 
-```
-telegram_bot_with_ai/
-├── app/
-│   ├── bot/
-│   │   ├── handlers/          # Обробники команд, колбеків та станів
-│   │   ├── fsm.py            # Визначення станів бота
-│   │   └── keyboards.py      # Клавіатури та меню
-│   ├── settings/
-│   │   └── config.py         # Конфігурація та налаштування
-│   ├── utils/                # Утиліти та сервіси
-│   └── main.py               # Точка входу в додаток
-├── resources/                 # Ресурси (зображення, меню, повідомлення)
-├── vosk/                     # Модель Vosk для розпізнавання мови
-└── requirements.txt          # Залежності проекту
-```
+## 📈 Before → after
+This was the starting point. To see where I went next, same person a few projects later:
+- 🚀 **[ai-post-bot](https://github.com/semtexfromua/ai-post-bot)** — FastAPI service with proper async, Celery, 235 tests, and clean architecture.
+- 🛒 **[django-test-shop](https://github.com/semtexfromua/django-test-shop)** — Django + DRF backend with CI and ~95% test coverage.
 
-## 🛠️ Встановлення та розгортання
+The contrast between this repo and those is exactly what I want you to see.
 
-### 1. Клонування репозиторію
+## ▶️ Run it (if you're curious)
 ```bash
-git clone <repository-url>
+git clone https://github.com/semtexfromua/telegram_bot_with_ai
 cd telegram_bot_with_ai
-```
-
-### 2. Створення віртуального середовища
-```bash
-python -m venv venv
-# Windows
-venv\Scripts\activate
-# Linux/Mac
-source venv/bin/activate
-```
-
-### 3. Встановлення залежностей
-
-**Для production:**
-```bash
+python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
+# create a .env with TELEGRAM_BOT_TOKEN and OPENAI_API_KEY
+python app/main.py
 ```
+The Ukrainian Vosk model is bundled. Commands: `/start`, `/gpt`, `/quiz`, `/talk`, `/translate`, `/speech`, `/random`.
 
-### 4. Налаштування змінних середовища
-Створіть файл `.env` в корені проекту:
-```env
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-OPENAI_API_KEY=your_openai_api_key
-```
-
-### 5. Завантаження Vosk моделі
-Модель української мови вже включена в проект. Якщо потрібно оновити:
-```bash
-# Завантажте модель з https://alphacephei.com/vosk/models
-# Розархівуйте в папку vosk/
-# Назву моделі додайте у config.py в папці app/settings
-```
-
-## 🔧 Конфігурація
-
-### Основні налаштування (app/settings/config.py)
-- `TELEGRAM_BOT_TOKEN` - токен вашого Telegram бота
-- `OPENAI_API_KEY` - ключ API OpenAI
-- `TEMPERATURE` - температура для GPT (0.8 за замовчуванням)
-- `MAX_TOKENS` - максимальна кількість токенів (300 за замовчуванням)
-
-### Ресурси
-- `messages.yaml` - тексти повідомлень бота
-- `menus.yaml` - структура меню та кнопок
-- `prompts.yaml` - промпти для AI моделей
-
-## 📱 Використання
-
-### Основні команди
-- `/start` - головне меню
-- `/help` - довідка
-- `/gpt` - спілкування з GPT
-- `/quiz` - проходження квізів
-- `/talk` - спілкування з персонажами
-- `/translate` - переклад тексту
-- `/speech` - робота з голосовими повідомленнями
-- `/random` - генерація випадкових порад
-
-### Стани бота
-- `gpt_waiting_question` - очікування питання для GPT
-- `quiz_waiting_theme` - вибір теми квізу
-- `quiz_game_in_progress` - проходження квізу
-- `talk_person_question` - спілкування з персонажем
-- `translate_waiting_text` - очікування тексту для перекладу
-- `speech_waiting_audio` - очікування голосового повідомлення
-
-## 🚨 Відомі проблеми та обмеження
-
-- **Синхронні операції:** Деякі функції (speech_to_text) блокують event loop
-- **Обробка помилок:** Недостатня валідація відповідей API
-- **Дублювання коду:** Ідентична логіка між командами та колбеками
-- **Ресурси:** Всі ресурси завантажуються в пам'ять при старті, це ок у випадку коли їх мало але якщо збільшувати функціонал потрібно перейти на lazy loading
-
-## 📋 TODO: План рефакторингу та покращення
-
-### 🔴 Критичні проблеми (вирішити в першу чергу)
-
-#### 1. Усунути дублювання коду
-- [ ] Створити єдину функцію `send_response()` для обробки всіх типів запитів
-- [ ] Рефакторити `commands.py` та `callbacks.py` для використання спільної логіки
-- [ ] Винести логіку створення відповідей в окремий сервіс
-
-#### 2. Покращити обробку помилок
-- [ ] Створити єдину систему обробки помилок
-- [ ] Замінити повернення `None` на proper error objects
-- [ ] Додати логування помилок замість print statements
-- [ ] Створити Pydantic моделі для error responses
-
-#### 3. Виправити асинхронність
-- [ ] Зробити `speech_to_text()` асинхронною
-- [ ] Додати `async def` до всіх I/O операцій
-- [ ] Використовувати `asyncio.to_thread()` для CPU-bound операцій
-
-### 🟡 Архітектурні покращення
-
-#### 4. Розділити відповідальності
-- [ ] Створити окремі сервіси для кожного функціонального блоку
-- [ ] Винести логіку завантаження ресурсів з `Settings` класу
-- [ ] Створити `ResourceManager` для управління ресурсами
-
-#### 5. Покращити конфігурацію
-- [ ] Додати валідацію наявності всіх необхідних файлів
-- [ ] Створити `ConfigValidator` для перевірки конфігурації
-- [ ] Додати environment-specific конфігурації (dev/prod)
-
-#### 6. Типізація та валідація
-- [ ] Додати повну типізацію для всіх функцій
-- [ ] Створити Pydantic моделі для всіх структур даних
-- [ ] Додати валідацію вхідних даних
-
-### 🟢 Покращення продуктивності
-
-#### 7. Оптимізація ресурсів
-- [ ] Реалізувати lazy loading для зображень та ресурсів
-- [ ] Додати кешування для GPT відповідей
-- [ ] Оптимізувати завантаження Vosk моделі
-
-#### 8. Моніторинг та логування
-- [ ] Замінити `print()` на proper logging
-- [ ] Додати метрики продуктивності
-- [ ] Створити health checks для API сервісів
-
-### 🔵 Додаткові функції
-
-#### 9. Тестування
-- [ ] Додати unit тести для утиліт
-- [ ] Створити integration тести для бота
-- [ ] Додати mock об'єкти для зовнішніх API
-
-#### 10. Документація
-- [ ] Додати docstrings до всіх функцій
-- [ ] Створити API документацію
-- [ ] Додати приклади використання
-
-## 🧪 Тестування
-
-### Запуск тестів
-```bash
-# Поки тести не реалізовані
-echo "Тести будуть додані в наступних ітераціях"
-```
-
-### Перевірка конфігурації
-```bash
-python -c "from app.settings.config import Settings; print('Config OK')"
-```
-
-## 📊 Продуктивність
-
-### Поточні метрики
-- **Час запуску:** ~2-3 секунди
-- **Пам'ять:** ~150-400MB (з Vosk моделлю)
-- **Відповідь GPT:** 1-3 секунди
-- **Обробка голосу:** 5-10 секунд
-
-### Цільові метрики після рефакторингу
-- **Час запуску:** <1 секунди
-- **Пам'ять:** <100MB
-- **Відповідь GPT:** <1 секунди
-- **Обробка голосу:** <3 секунди
-
-## 🤝 Внесок
-
-1. Fork проект
-2. Створіть feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit зміни (`git commit -m 'Add some AmazingFeature'`)
-4. Push в branch (`git push origin feature/AmazingFeature`)
-5. Відкрийте Pull Request
-
-## 📄 Ліцензія
-
-Цей проект розповсюджується під ліцензією MIT. Дивіться `LICENSE` для деталей.
-
-## 📞 Підтримка
-
-Якщо у вас виникли питання або проблеми:
-1. Перевірте секцію "Відомі проблеми"
-2. Подивіться на TODO список
-3. Створіть Issue з детальним описом проблеми
+## 📄 License
+MIT — see [LICENSE](LICENSE).
 
 ---
-
-**Примітка:** Це навчальний проект, створений для вивчення Python, асинхронного програмування та інтеграції з AI сервісами. Код призначений для освітніх цілей та потребує рефакторингу для production використання.
+*A learning project, kept public as the first chapter of my Python journey.*
